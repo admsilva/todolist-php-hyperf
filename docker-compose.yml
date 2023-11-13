@@ -1,0 +1,88 @@
+version: '3'
+
+services:
+  mysql.dev:
+    container_name: mysql.dev
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE_FOLDER}/mysql/Dockerfile
+    ports:
+      - ${MYSQL_PORT}:3306
+    restart: always
+    volumes:
+      - mysql.dev.data:/var/lib/mysql
+      - ${LOG_FOLDER}:/var/log/mysql
+    working_dir: /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      SERVICE_TAGS: ${MYSQL_SERVICE_TAGS}
+      SERVICE_NAME: ${MYSQL_SERVICE_NAME}
+    networks:
+      - dev
+
+  mongo.dev:
+    container_name: mongo.dev
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE_FOLDER}/mongo/Dockerfile
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_DATABASE}
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - mongo.dev.data:/data/db
+    working_dir: /data/db
+    networks:
+      - dev
+
+  redis.dev:
+    container_name: redis.dev
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE_FOLDER}/redis/Dockerfile
+    ports:
+      - ${REDIS_PORT}:6379
+    restart: always
+    volumes:
+      - redis.dev.data:/data
+    working_dir: /data
+    command: redis-server --save 20 1 --loglevel debug --requirepass ${REDIS_PASSWORD}
+    networks:
+      - dev
+
+  app.dev:
+    container_name: app.dev
+    build:
+      context: .
+      dockerfile: ${DOCKER_FILE_FOLDER}/php/Dockerfile
+      args:
+        APP_ENV: ${APP_ENV}
+        USER: ${USER_NAME}
+        GROUP: ${GROUP_NAME}
+        APP_FOLDER: ${APP_FOLDER}
+    ports:
+      - ${APP_PORT}:9501
+    restart: always
+    user: ${USER_NAME}
+    volumes:
+      - ./src:/app
+    working_dir: /app
+    depends_on:
+      - mysql.dev
+      - redis.dev
+      - mongo.dev
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  mysql.dev.data:
+  redis.dev.data:
+  mongo.dev.data:

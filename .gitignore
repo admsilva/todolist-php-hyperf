@@ -1,0 +1,9 @@
+.idea
+.vscode
+.env
+data/*
+!data/.gitkeep
+log/*
+!log/.gitkeep
+.php-cs-fixer.cache
+psalm.xml
