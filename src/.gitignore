@@ -13,3 +13,4 @@ vendor/
 *.cache
 .vscode/
 .ash_history
+.composer
