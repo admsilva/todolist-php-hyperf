@@ -18,21 +18,21 @@ class UserController extends AbstractController
     }
 
     #[RequestMapping(path: "list", methods: "get")]
-    public function list(ResponseInterface $response): Psr7ResponseInterface
+    public function listAllUsers(ResponseInterface $response): Psr7ResponseInterface
     {
         try {
-            $users = $this->userService->listAllUsers();
+            $users = $this->userService->listAll();
             return $response->json($users);
         } catch (Throwable $throwable) {
             return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
-    #[RequestMapping(path: "{id}", methods: "get")]
-    public function getUserById(string $id, ResponseInterface $response): Psr7ResponseInterface
+    #[RequestMapping(path: "{uuid}", methods: "get")]
+    public function getUserByUuid(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
-            $user = $this->userService->findUserById($id);
+            $user = $this->userService->findByUuid($uuid);
             return $response->json($user);
         } catch (Throwable $throwable) {
             return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
@@ -44,30 +44,30 @@ class UserController extends AbstractController
     {
         try {
             $data = $request->all();
-            $user = $this->userService->createNewUser($data);
+            $user = $this->userService->create($data);
             return $response->json($user);
         } catch (Throwable $throwable) {
             return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
-    #[RequestMapping(path: "{id}", methods: "put")]
-    public function updateUser(string $id, RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
+    #[RequestMapping(path: "{uuid}", methods: "put")]
+    public function updateUser(string $uuid, RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
             $data = $request->all();
-            $isUpdated = $this->userService->updateUserById($id, $data);
+            $isUpdated = $this->userService->updateByUuid($uuid, $data);
             return $response->json(['updated' => $isUpdated]);
         } catch (Throwable $throwable) {
             return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
-    #[RequestMapping(path: "{id}", methods: "delete")]
-    public function deleteUser(string $id, ResponseInterface $response): Psr7ResponseInterface
+    #[RequestMapping(path: "{uuid}", methods: "delete")]
+    public function deleteUser(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
-            $isDeleted = $this->userService->deleteUserById($id);
+            $isDeleted = $this->userService->deleteById($uuid);
             return $response->json(['deleted' => $isDeleted]);
         } catch (Throwable $throwable) {
             return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());

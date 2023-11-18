@@ -5,74 +5,39 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Exception\UserException;
-use App\Model\User;
-use App\Repositories\Contracts\UserRepositoryInterface;
-use Exception;
+use App\Model\Model;
 use Hyperf\Collection\Arr;
-use Hyperf\Database\Model\Collection;
+use Hyperf\Database\Model\Builder;
 
-readonly class UserService
+readonly class UserService extends AbstractService
 {
-    /**
-     * @param UserRepositoryInterface $userRepository
-     */
-    public function __construct(private UserRepositoryInterface $userRepository)
-    {
-    }
-
-    /**
-     * @param string $id
-     * @return User
-     */
-    public function findUserById(string $id): User
-    {
-        return $this->getUserById($id);
-    }
-
-    /**
-     * @return Collection
-     */
-    public function listAllUsers(): Collection
-    {
-        return $this->userRepository->listAll();
-    }
+    protected const MODEL_NAME = 'user';
 
     /**
      * @param array $data
-     * @return User
+     * @return Model
      */
-    public function createNewUser(array $data): User
+    public function create(array $data): Model
     {
         $email = Arr::get($data, 'email');
-        $user = $this->userRepository->getUserByEmail($email);
+        $user = $this->getUserByEmail($email);
         if ($user !== null) {
             throw UserException::userAlreadyExists($user);
         }
         $data = $this->passwordHashed($data);
-        return $this->userRepository->create($data);
+        return $this->repository->create($data);
     }
 
     /**
-     * @param string $id
+     * @param string $uuid
      * @param array $data
      * @return bool
      */
-    public function updateUserById(string $id, array $data): bool
+    public function updateByUuid(string $uuid, array $data): bool
     {
-        $user = $this->getUserById($id);
+        $user = $this->getByUuid($uuid);
         $data = $this->passwordHashed($data);
         return $user->update($data);
-    }
-
-    /**
-     * @param string $id
-     * @return bool
-     * @throws Exception
-     */
-    public function deleteUserById(string $id): bool
-    {
-        $user = $this->getUserById($id);
-        return $user->delete();
     }
 
     /**
@@ -91,15 +56,12 @@ readonly class UserService
     }
 
     /**
-     * @param string $id
-     * @return User
+     * @param string $email
+     * @return Builder|Model|null
      */
-    private function getUserById(string $id): User
+    private function getUserByEmail(string $email): Builder|Model|null
     {
-        $user = $this->userRepository->findById($id);
-        if ($user === null) {
-            throw UserException::userNotFound($id);
-        }
-        return $user;
+        $filters = ['email' => $email];
+        return $this->repository->first($filters);
     }
 }

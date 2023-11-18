@@ -35,7 +35,7 @@ class User extends Model
      *
      * @var array
      */
-    protected array $fillable = ['id', 'name', 'email', 'password'];
+    protected array $fillable = ['uuid', 'name', 'email', 'password'];
 
     /**
      * The attributes that are dates
@@ -49,7 +49,7 @@ class User extends Model
      *
      * @var array
      */
-    protected array $casts = ['id' => 'string', 'name' => 'string', 'email' => 'string', 'password' => 'string'];
+    protected array $casts = ['uuid' => 'string', 'name' => 'string', 'email' => 'string', 'password' => 'string'];
 
     /**
      * The attributes that should be hidden
