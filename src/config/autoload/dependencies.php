@@ -10,9 +10,9 @@ declare(strict_types=1);
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
 
-use App\Repositories\Contracts\UserRepositoryInterface;
-use App\Repositories\UserRepository;
+use App\Repositories\Contracts\RepositoryInterface;
+use App\Repositories\QueryBuilder\QueryBuilderRepositoryStrategy;
 
 return [
-    UserRepositoryInterface::class => UserRepository::class,
+    RepositoryInterface::class => QueryBuilderRepositoryStrategy::class,
 ];

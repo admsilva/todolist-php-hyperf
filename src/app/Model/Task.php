@@ -1,13 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Model;
 
 use Hyperf\Database\Model\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
-class User extends Model
+class Task extends Model
 {
     use SoftDeletes;
 
@@ -23,7 +21,7 @@ class User extends Model
      *
      * @var string|null
      */
-    protected ?string $table = 'users';
+    protected ?string $table = 'tasks';
 
     /**
      * @var string
@@ -35,28 +33,36 @@ class User extends Model
      *
      * @var array
      */
-    protected array $fillable = ['uuid', 'name', 'email', 'password'];
+    protected array $fillable = ['uuid', 'title', 'description', 'start_at', 'end_at', 'priority', 'user_uuid'];
 
     /**
      * The attributes that are dates
      *
      * @var array|string[]
      */
-    protected array $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected array $dates = ['created_at', 'updated_at', 'deleted_at', 'start_at', 'end_at'];
 
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected array $casts = ['uuid' => 'string', 'name' => 'string', 'email' => 'string', 'password' => 'string'];
+    protected array $casts = [
+        'uuid' => 'string',
+        'title' => 'string',
+        'description' => 'string',
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
+        'priority' => 'string',
+        'user_uuid' => 'string',
+    ];
 
     /**
      * The attributes that should be hidden
      *
      * @var array|string[]
      */
-    protected array $hidden = ['password', 'deleted_at'];
+    protected array $hidden = ['deleted_at'];
 
     /**
      * Boot creating
