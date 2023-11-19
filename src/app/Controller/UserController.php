@@ -2,22 +2,29 @@
 
 namespace App\Controller;
 
+use App\Middleware\AuthMiddleware;
+use App\Middleware\OnlyAdminMiddleware;
 use App\Services\UserService;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Annotation\RequestMapping;
+use Hyperf\HttpServer\Annotation\DeleteMapping;
+use Hyperf\HttpServer\Annotation\GetMapping;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\PostMapping;
+use Hyperf\HttpServer\Annotation\PutMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
 
 #[Controller]
+#[Middlewares([AuthMiddleware::class, OnlyAdminMiddleware::class])]
 class UserController extends AbstractController
 {
-    public function __construct(private readonly UserService $userService)
-    {
-    }
+    #[Inject]
+    private readonly UserService $userService;
 
-    #[RequestMapping(path: "list", methods: "get")]
+    #[GetMapping(path: "list")]
     public function listAllUsers(ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -28,7 +35,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "get")]
+    #[GetMapping(path: "{uuid}")]
     public function getUserByUuid(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -39,7 +46,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "", methods: "post")]
+    #[PostMapping(path: "")]
     public function createUser(RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -51,7 +58,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "put")]
+    #[PutMapping(path: "{uuid}")]
     public function updateUser(string $uuid, RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -63,7 +70,7 @@ class UserController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "delete")]
+    #[DeleteMapping(path: "{uuid}")]
     public function deleteUser(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {

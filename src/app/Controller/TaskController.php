@@ -2,22 +2,28 @@
 
 namespace App\Controller;
 
+use App\Middleware\AuthMiddleware;
 use App\Services\TaskService;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
-use Hyperf\HttpServer\Annotation\RequestMapping;
+use Hyperf\HttpServer\Annotation\DeleteMapping;
+use Hyperf\HttpServer\Annotation\GetMapping;
+use Hyperf\HttpServer\Annotation\Middleware;
+use Hyperf\HttpServer\Annotation\PostMapping;
+use Hyperf\HttpServer\Annotation\PutMapping;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
 
 #[Controller]
+#[Middleware(AuthMiddleware::class)]
 class TaskController extends AbstractController
 {
-    public function __construct(private readonly TaskService $taskService)
-    {
-    }
+    #[Inject]
+    private readonly TaskService $taskService;
 
-    #[RequestMapping(path: "list", methods: "get")]
+    #[GetMapping(path: "list")]
     public function listAllTasks(ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -28,7 +34,7 @@ class TaskController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "get")]
+    #[GetMapping(path: "{uuid}")]
     public function getTaskByUuid(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -39,7 +45,7 @@ class TaskController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "", methods: "post")]
+    #[PostMapping(path: "")]
     public function createTask(RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -51,7 +57,7 @@ class TaskController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "put")]
+    #[PutMapping(path: "{uuid}")]
     public function updateTask(string $uuid, RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
     {
         try {
@@ -63,7 +69,7 @@ class TaskController extends AbstractController
         }
     }
 
-    #[RequestMapping(path: "{uuid}", methods: "delete")]
+    #[DeleteMapping(path: "{uuid}")]
     public function deleteTask(string $uuid, ResponseInterface $response): Psr7ResponseInterface
     {
         try {

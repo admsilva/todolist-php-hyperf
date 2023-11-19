@@ -5,10 +5,11 @@ namespace App\Services;
 use App\Exception\RegisterException;
 use App\Model\Model;
 use App\Repositories\Repository;
+use App\Services\Contracts\ServiceInterface;
 use Exception;
 use Hyperf\Database\Model\Collection;
 
-abstract readonly class AbstractService
+abstract readonly class AbstractService implements ServiceInterface
 {
     /**
      * @param Repository $repository

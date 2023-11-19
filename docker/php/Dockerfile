@@ -22,4 +22,4 @@ COPY ./docker/php/scripts/ /
 
 RUN chmod +x /docker-entrypoint.sh && chmod +x /usr/local/bin/composer
 
-ENTRYPOINT ["sh", "-c", "/docker-entrypoint.sh \"${USER}\" ${GROUP}"]
+ENTRYPOINT ["sh", "-c", "/docker-entrypoint.sh"]
