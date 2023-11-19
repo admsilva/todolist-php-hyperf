@@ -2,6 +2,7 @@
 
 namespace App\Repositories\QueryBuilder;
 
+use App\Exception\ModelException;
 use App\Model\Model;
 use App\Repositories\Contracts\RepositoryInterface;
 use Exception;
@@ -13,6 +14,7 @@ class QueryBuilderRepositoryStrategy implements RepositoryInterface
      * @var array
      */
     protected array $collection;
+
     /**
      * @var Model
      */
@@ -25,13 +27,11 @@ class QueryBuilderRepositoryStrategy implements RepositoryInterface
      */
     public function setModelName(string $modelName): void
     {
-        $modelString = 'App\\Model\\' . ucfirst($modelName);
-
-        if (class_exists($modelString) === false) {
-            throw new Exception("Class {$modelString} doesn`t exists");
+        $modelClass = 'App\\Model\\' . ucfirst($modelName);
+        if (class_exists($modelClass) === false) {
+            throw ModelException::notFound($modelClass);
         }
-
-        $this->model = new $modelString();
+        $this->model = new $modelClass();
     }
 
     /**

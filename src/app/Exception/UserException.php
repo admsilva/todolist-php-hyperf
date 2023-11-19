@@ -10,17 +10,11 @@ class UserException extends ServerException
     public static function userAlreadyExists(User $user): self
     {
         $message = sprintf('Usuario [email: %s] ja existe.', $user->email);
-        return new self(
-            message: $message,
-            code: 400
-        );
+        return new self(message: $message, code: 400);
     }
 
     public static function userPasswordNotFound(): self
     {
-        return new self(
-            message: 'Senha nao foi definida.',
-            code: 400
-        );
+        return new self(message: 'Senha nao foi definida.', code: 400);
     }
 }
