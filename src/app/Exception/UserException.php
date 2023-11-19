@@ -13,6 +13,12 @@ class UserException extends ServerException
         return new self(message: $message, code: 400);
     }
 
+    public static function userEmailNotFound(string $email): self
+    {
+        $message = sprintf('Usuario [email: %s] nao existe.', $email);
+        return new self(message: $message, code: 400);
+    }
+
     public static function userPasswordNotFound(): self
     {
         return new self(message: 'Senha nao foi definida.', code: 400);

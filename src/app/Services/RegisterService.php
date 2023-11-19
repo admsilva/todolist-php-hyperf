@@ -1,0 +1,20 @@
+<?php
+
+namespace App\Services;
+
+use App\Constants\Profile;
+use App\Model\Model;
+use Hyperf\Collection\Arr;
+use Hyperf\Di\Annotation\Inject;
+
+readonly class RegisterService
+{
+    #[Inject]
+    private UserService $userService;
+
+    public function register(array $data): Model
+    {
+        Arr::set($data, 'profile', Profile::GUEST);
+        return $this->userService->create($data);
+    }
+}

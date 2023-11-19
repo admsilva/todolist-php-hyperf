@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Constants\Profile;
 use App\Exception\UserException;
 use App\Model\Model;
+use App\Services\Contracts\ServiceInterface;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 
-readonly class UserService extends AbstractService
+readonly class UserService extends AbstractService implements ServiceInterface
 {
-    protected const MODEL_NAME = 'user';
+    /**
+     * @const string
+     */
+    final protected const MODEL_NAME = 'user';
 
     /**
      * @param array $data
@@ -38,6 +43,21 @@ readonly class UserService extends AbstractService
         $user = $this->getByUuid($uuid);
         $data = $this->passwordHashed($data);
         return $user->update($data);
+    }
+
+    public function isAdminByUuid(string $uuid): bool
+    {
+        $user = $this->repository->findByUuid($uuid);
+
+        if ($user === null) {
+            return false;
+        }
+
+        if ($user->profile !== Profile::ADMIN) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
-use App\Repositories\Repository;
+use App\Services\Contracts\ServiceInterface;
 
-readonly class TaskService extends AbstractService
+readonly class TaskService extends AbstractService implements ServiceInterface
 {
-    protected const MODEL_NAME = 'task';
+    /**
+     * @const string
+     */
+    final protected const MODEL_NAME = 'task';
 }
