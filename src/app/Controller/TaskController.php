@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Middleware\AuthMiddleware;
 use App\Request\TaskRequest;
+use App\Resource\TaskResource;
 use App\Services\TaskService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
@@ -41,8 +42,8 @@ class TaskController extends AbstractController
     public function listAllTasks(): Psr7ResponseInterface
     {
         try {
-            $users = $this->taskService->listAll();
-            return $this->response->json($users);
+            $tasks = $this->taskService->listAll();
+            return $this->response->json(['data' => $tasks]);
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
@@ -56,8 +57,8 @@ class TaskController extends AbstractController
     public function getTaskByUuid(string $uuid): Psr7ResponseInterface
     {
         try {
-            $user = $this->taskService->findByUuid($uuid);
-            return $this->response->json($user);
+            $task = $this->taskService->findByUuid($uuid);
+            return (new TaskResource($task))->toResponse();
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
@@ -72,8 +73,8 @@ class TaskController extends AbstractController
     {
         try {
             $data = $request->all();
-            $user = $this->taskService->create($data);
-            return $this->response->json($user);
+            $task = $this->taskService->create($data);
+            return (new TaskResource($task))->toResponse();
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }

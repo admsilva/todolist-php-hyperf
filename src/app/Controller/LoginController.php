@@ -39,7 +39,7 @@ class LoginController extends AbstractController
             $email = $request->input('email');
             $password = $request->input('password');
             $token = $this->loginService->login($email, $password);
-            return $this->response->json($token);
+            return $this->response->json(['data' => $token]);
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }

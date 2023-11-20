@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Request;
 
+use App\Constants\Priority;
 use Hyperf\Validation\Request\FormRequest;
 
 class TaskRequest extends FormRequest
@@ -26,7 +27,7 @@ class TaskRequest extends FormRequest
             'description' => 'required|string',
             'start_at' => 'required|date_format:Y-m-d H:i:s|before:end_at',
             'end_at' => 'required|date_format:Y-m-d H:i:s|after:start_at',
-            'priority' => 'required',
+            'priority' => 'required|in:' . implode(',', Priority::values()),
         ];
     }
 }

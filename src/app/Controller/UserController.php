@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Middleware\AuthMiddleware;
 use App\Middleware\OnlyAdminMiddleware;
 use App\Request\UserRequest;
+use App\Resource\UserResource;
 use App\Services\UserService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
@@ -43,7 +44,7 @@ class UserController extends AbstractController
     {
         try {
             $users = $this->userService->listAll();
-            return $this->response->json($users);
+            return $this->response->json(['data' => $users]);
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
@@ -58,7 +59,7 @@ class UserController extends AbstractController
     {
         try {
             $user = $this->userService->findByUuid($uuid);
-            return $this->response->json($user);
+            return (new UserResource($user))->toResponse();
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
@@ -74,7 +75,7 @@ class UserController extends AbstractController
         try {
             $data = $request->all();
             $user = $this->userService->create($data);
-            return $this->response->json($user);
+            return (new UserResource($user))->toResponse();
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }

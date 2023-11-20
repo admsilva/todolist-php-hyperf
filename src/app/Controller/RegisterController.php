@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Request\RegisterRequest;
+use App\Resource\UserResource;
 use App\Services\RegisterService;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\PostMapping;
@@ -38,7 +39,7 @@ class RegisterController extends AbstractController
         try {
             $data = $request->all();
             $user = $this->registerService->register($data);
-            return $this->response->json($user);
+            return (new UserResource($user))->toResponse();
         } catch (Throwable $throwable) {
             return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
