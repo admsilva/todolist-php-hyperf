@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\QueryBuilder;
 
 use App\Exception\ModelException;
@@ -103,5 +105,15 @@ class QueryBuilderRepositoryStrategy implements RepositoryInterface
     {
         $model = new $this->model();
         return $model->where($filters)->first();
+    }
+
+    /**
+     * @param array $filters
+     * @return Collection|array
+     */
+    public function where(array $filters): Collection|array
+    {
+        $model = new $this->model();
+        return $model->where($filters)->get();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 use App\Exception\RegisterException;
@@ -65,6 +67,15 @@ abstract readonly class AbstractService implements ServiceInterface
     {
         $register = $this->getByUuid($uuid);
         return $register->delete();
+    }
+
+    /**
+     * @param array $filters
+     * @return array|Collection
+     */
+    public function where(array $filters): array|Collection
+    {
+        return $this->repository->where($filters);
     }
 
     /**

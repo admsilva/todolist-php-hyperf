@@ -9,11 +9,8 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-
-use Hyperf\Validation\Middleware\ValidationMiddleware;
-
 return [
-    'http' => [
-        ValidationMiddleware::class,
-    ],
+    'locale' => 'pt_BR',
+    'fallback_locale' => 'en',
+    'path' => BASE_PATH . '/storage/languages',
 ];
