@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Middleware;
 
 use App\Services\UserService;
-use Hyperf\Collection\Arr;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -37,7 +38,7 @@ readonly class OnlyAdminMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $user = $this->container->get('user');
-        $uuid = $user?->uuid;
+        $uuid = (string) $user?->uuid;
         $isAdmin = $this->userService->isAdminByUuid($uuid);
         if ($isAdmin === false) {
             return $this->response->json(['message' => 'Nao autorizado.'])->withStatus(403);

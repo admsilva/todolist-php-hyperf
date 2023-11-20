@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Middleware;
 
 use Firebase\JWT\JWT;
@@ -14,7 +16,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
-class AuthMiddleware implements MiddlewareInterface
+readonly class AuthMiddleware implements MiddlewareInterface
 {
     /**
      * @var string
@@ -27,9 +29,9 @@ class AuthMiddleware implements MiddlewareInterface
      * @param HttpResponse $response
      */
     public function __construct(
-        protected readonly Container $container,
-        protected readonly RequestInterface  $request,
-        protected readonly HttpResponse $response
+        protected Container $container,
+        protected RequestInterface  $request,
+        protected HttpResponse $response
     ) {
         $this->jwtSecretKey = getenv('JWT_SECRET_KEY');
     }

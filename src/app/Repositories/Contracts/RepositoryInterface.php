@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories\Contracts;
 
 use App\Model\Model;
@@ -54,4 +56,10 @@ interface RepositoryInterface
      * @return Model|null
      */
     public function first(array $filters): ?Model;
+
+    /**
+     * @param array $filters
+     * @return array|Collection
+     */
+    public function where(array $filters): array|Collection;
 }

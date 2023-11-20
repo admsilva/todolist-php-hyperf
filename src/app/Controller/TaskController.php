@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller;
 
 use App\Middleware\AuthMiddleware;
+use App\Request\TaskRequest;
 use App\Services\TaskService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
@@ -11,7 +14,6 @@ use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\Middleware;
 use Hyperf\HttpServer\Annotation\PostMapping;
 use Hyperf\HttpServer\Annotation\PutMapping;
-use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
@@ -20,63 +22,92 @@ use Throwable;
 #[Middleware(AuthMiddleware::class)]
 class TaskController extends AbstractController
 {
+    /**
+     * @var TaskService
+     */
     #[Inject]
     private readonly TaskService $taskService;
 
+    /**
+     * @var ResponseInterface
+     */
+    #[Inject]
+    protected ResponseInterface $response;
+
+    /**
+     * @return Psr7ResponseInterface
+     */
     #[GetMapping(path: "list")]
-    public function listAllTasks(ResponseInterface $response): Psr7ResponseInterface
+    public function listAllTasks(): Psr7ResponseInterface
     {
         try {
             $users = $this->taskService->listAll();
-            return $response->json($users);
+            return $this->response->json($users);
         } catch (Throwable $throwable) {
-            return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
+            return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
+    /**
+     * @param string $uuid
+     * @return Psr7ResponseInterface
+     */
     #[GetMapping(path: "{uuid}")]
-    public function getTaskByUuid(string $uuid, ResponseInterface $response): Psr7ResponseInterface
+    public function getTaskByUuid(string $uuid): Psr7ResponseInterface
     {
         try {
             $user = $this->taskService->findByUuid($uuid);
-            return $response->json($user);
+            return $this->response->json($user);
         } catch (Throwable $throwable) {
-            return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
+            return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
+    /**
+     * @param TaskRequest $request
+     * @return Psr7ResponseInterface
+     */
     #[PostMapping(path: "")]
-    public function createTask(RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
+    public function createTask(TaskRequest $request): Psr7ResponseInterface
     {
         try {
             $data = $request->all();
             $user = $this->taskService->create($data);
-            return $response->json($user);
+            return $this->response->json($user);
         } catch (Throwable $throwable) {
-            return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
+            return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
+    /**
+     * @param string $uuid
+     * @param TaskRequest $request
+     * @return Psr7ResponseInterface
+     */
     #[PutMapping(path: "{uuid}")]
-    public function updateTask(string $uuid, RequestInterface $request, ResponseInterface $response): Psr7ResponseInterface
+    public function updateTask(string $uuid, TaskRequest $request): Psr7ResponseInterface
     {
         try {
             $data = $request->all();
             $isUpdated = $this->taskService->updateByUuid($uuid, $data);
-            return $response->json(['updated' => $isUpdated]);
+            return $this->response->json(['updated' => $isUpdated]);
         } catch (Throwable $throwable) {
-            return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
+            return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 
+    /**
+     * @param string $uuid
+     * @return Psr7ResponseInterface
+     */
     #[DeleteMapping(path: "{uuid}")]
-    public function deleteTask(string $uuid, ResponseInterface $response): Psr7ResponseInterface
+    public function deleteTask(string $uuid): Psr7ResponseInterface
     {
         try {
             $isDeleted = $this->taskService->deleteById($uuid);
-            return $response->json(['deleted' => $isDeleted]);
+            return $this->response->json(['deleted' => $isDeleted]);
         } catch (Throwable $throwable) {
-            return $response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
+            return $this->response->json(['message' => $throwable->getMessage()])->withStatus($throwable->getCode());
         }
     }
 }

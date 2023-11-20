@@ -20,19 +20,32 @@ use Hyperf\AsyncQueue\Event\RetryHandle;
 use Hyperf\Event\Annotation\Listener;
 use Hyperf\Event\Contract\ListenerInterface;
 use Hyperf\Logger\LoggerFactory;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Log\LoggerInterface;
 
 #[Listener]
 class QueueHandleListener implements ListenerInterface
 {
+    /**
+     * @var LoggerInterface
+     */
     protected LoggerInterface $logger;
 
+    /**
+     * @param ContainerInterface $container
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __construct(ContainerInterface $container)
     {
         $this->logger = $container->get(LoggerFactory::class)->get('queue');
     }
 
+    /**
+     * @return string[]
+     */
     public function listen(): array
     {
         return [
@@ -43,6 +56,10 @@ class QueueHandleListener implements ListenerInterface
         ];
     }
 
+    /**
+     * @param object $event
+     * @return void
+     */
     public function process(object $event): void
     {
         if ($event instanceof Event && $event->getMessage()->job()) {

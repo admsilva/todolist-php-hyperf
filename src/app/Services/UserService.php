@@ -45,6 +45,10 @@ readonly class UserService extends AbstractService implements ServiceInterface
         return $user->update($data);
     }
 
+    /**
+     * @param string $uuid
+     * @return bool
+     */
     public function isAdminByUuid(string $uuid): bool
     {
         $user = $this->repository->findByUuid($uuid);

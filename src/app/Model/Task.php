@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Model;
 
+use App\Scopes\FilterByUserAuth;
 use Hyperf\Database\Model\SoftDeletes;
 use Ramsey\Uuid\Uuid;
 
@@ -72,5 +75,15 @@ class Task extends Model
     public function creating(): void
     {
         $this->{$this->getKeyName()} = Uuid::uuid4();
+    }
+
+    /**
+     * @return void
+     */
+    public function boot(): void
+    {
+        parent::boot();
+
+        static::addGlobalScope(new FilterByUserAuth());
     }
 }

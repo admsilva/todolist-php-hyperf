@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
 use App\Model\Model;
@@ -78,8 +80,21 @@ class Repository implements RepositoryInterface
         return $this->repository->delete($uuid);
     }
 
+    /**
+     * @param array $filters
+     * @return Model|null
+     */
     public function first(array $filters): ?Model
     {
         return $this->repository->first($filters);
+    }
+
+    /**
+     * @param array $filters
+     * @return array|Collection
+     */
+    public function where(array $filters): array|Collection
+    {
+        return $this->repository->where($filters);
     }
 }

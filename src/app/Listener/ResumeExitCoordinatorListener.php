@@ -20,6 +20,9 @@ use Hyperf\Event\Contract\ListenerInterface;
 #[Listener]
 class ResumeExitCoordinatorListener implements ListenerInterface
 {
+    /**
+     * @return string[]
+     */
     public function listen(): array
     {
         return [
@@ -27,6 +30,10 @@ class ResumeExitCoordinatorListener implements ListenerInterface
         ];
     }
 
+    /**
+     * @param object $event
+     * @return void
+     */
     public function process(object $event): void
     {
         CoordinatorManager::until(Constants::WORKER_EXIT)->resume();
