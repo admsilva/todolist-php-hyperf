@@ -12,7 +12,7 @@
     "description": "A coroutine framework that focuses on hyperspeed and flexible, specifically use for build microservices and middlewares.",
     "license": "Apache-2.0",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.2",
         "firebase/php-jwt": "^6.9",
         "hyperf/amqp": "~3.0.0",
         "hyperf/async-queue": "~3.0.0",
@@ -33,6 +33,7 @@
         "hyperf/model-cache": "~3.0.0",
         "hyperf/process": "~3.0.0",
         "hyperf/redis": "~3.0.0",
+        "hyperf/resource": "^3.0",
         "hyperf/rpc": "~3.0.0",
         "hyperf/rpc-client": "~3.0.0",
         "hyperf/rpc-server": "~3.0.0",
