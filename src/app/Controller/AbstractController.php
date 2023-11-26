@@ -15,7 +15,9 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Container\ContainerInterface;
+use Hyperf\Swagger\Annotation as OA;
 
+#[OA\Server(url: 'http://localhost:9510')]
 abstract class AbstractController
 {
     /**

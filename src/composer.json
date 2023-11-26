@@ -37,6 +37,7 @@
         "hyperf/rpc": "~3.0.0",
         "hyperf/rpc-client": "~3.0.0",
         "hyperf/rpc-server": "~3.0.0",
+        "hyperf/swagger": "~3.0.0",
         "hyperf/tracer": "~3.0.0",
         "hyperf/utils": "~3.0.0",
         "hyperf/validation": "~3.0.0",
