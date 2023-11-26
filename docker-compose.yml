@@ -67,6 +67,7 @@ services:
         APP_FOLDER: ${APP_FOLDER}
     ports:
       - ${APP_PORT}:9501
+      - ${SWAGGER_PORT}:9502
     restart: always
     user: ${USER_NAME}
     volumes:
