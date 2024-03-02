@@ -11,17 +11,26 @@ declare(strict_types=1);
  */
 use Zipkin\Samplers\BinarySampler;
 
+use function Hyperf\Support\env;
+
 return [
+    // To disable hyperf/opentracing temporarily, set default driver to noop.
     'default' => env('TRACER_DRIVER', 'zipkin'),
     'enable' => [
-        'guzzle' => env('TRACER_ENABLE_GUZZLE', false),
-        'redis' => env('TRACER_ENABLE_REDIS', false),
+        'coroutine' => env('TRACER_ENABLE_COROUTINE', false),
         'db' => env('TRACER_ENABLE_DB', false),
+        'elasticserach' => env('TRACER_ENABLE_ELASTICSERACH', false),
+        'exception' => env('TRACER_ENABLE_EXCEPTION', false),
+        'grpc' => env('TRACER_ENABLE_GRPC', false),
+        'guzzle' => env('TRACER_ENABLE_GUZZLE', false),
         'method' => env('TRACER_ENABLE_METHOD', false),
+        'redis' => env('TRACER_ENABLE_REDIS', false),
+        'rpc' => env('TRACER_ENABLE_RPC', false),
+        'ignore_exceptions' => [],
     ],
     'tracer' => [
         'zipkin' => [
-            'driver' => \Hyperf\Tracer\Adapter\ZipkinTracerFactory::class,
+            'driver' => Hyperf\Tracer\Adapter\ZipkinTracerFactory::class,
             'app' => [
                 'name' => env('APP_NAME', 'skeleton'),
                 // Hyperf will detect the system info automatically as the value if ipv4, ipv6, port is null
@@ -29,21 +38,97 @@ return [
                 'ipv6' => null,
                 'port' => 9501,
             ],
-            'options' => [
-                'endpoint_url' => env('ZIPKIN_ENDPOINT_URL', 'http://localhost:9411/api/v2/spans'),
-                'timeout' => env('ZIPKIN_TIMEOUT', 1),
+            'reporter' => env('ZIPKIN_REPORTER', 'http'), // kafka, http
+            'reporters' => [
+                // options for http reporter
+                'http' => [
+                    'class' => \Zipkin\Reporters\Http::class,
+                    'constructor' => [
+                        'options' => [
+                            'endpoint_url' => env('ZIPKIN_ENDPOINT_URL', 'http://localhost:9411/api/v2/spans'),
+                            'timeout' => env('ZIPKIN_TIMEOUT', 1),
+                        ],
+                    ],
+                ],
+                // options for kafka reporter
+                'kafka' => [
+                    'class' => \Hyperf\Tracer\Adapter\Reporter\Kafka::class,
+                    'constructor' => [
+                        'options' => [
+                            'topic' => env('ZIPKIN_KAFKA_TOPIC', 'zipkin'),
+                            'bootstrap_servers' => env('ZIPKIN_KAFKA_BOOTSTRAP_SERVERS', '127.0.0.1:9092'),
+                            'acks' => (int) env('ZIPKIN_KAFKA_ACKS', -1),
+                            'connect_timeout' => (int) env('ZIPKIN_KAFKA_CONNECT_TIMEOUT', 1),
+                            'send_timeout' => (int) env('ZIPKIN_KAFKA_SEND_TIMEOUT', 1),
+                        ],
+                    ],
+                ],
+                'noop' => [
+                    'class' => \Zipkin\Reporters\Noop::class,
+                ],
             ],
             'sampler' => BinarySampler::createAsAlwaysSample(),
         ],
         'jaeger' => [
-            'driver' => \Hyperf\Tracer\Adapter\JaegerTracerFactory::class,
+            'driver' => Hyperf\Tracer\Adapter\JaegerTracerFactory::class,
             'name' => env('APP_NAME', 'skeleton'),
             'options' => [
+                /*
+                 * You can uncomment the sampler lines to use custom strategy.
+                 *
+                 * For more available configurations,
+                 * @see https://github.com/jonahgeorge/jaeger-client-php
+                 */
+                // 'sampler' => [
+                //     'type' => \Jaeger\SAMPLER_TYPE_CONST,
+                //     'param' => true,
+                // ],,
                 'local_agent' => [
                     'reporting_host' => env('JAEGER_REPORTING_HOST', 'localhost'),
                     'reporting_port' => env('JAEGER_REPORTING_PORT', 5775),
                 ],
             ],
+        ],
+        'noop' => [
+            'driver' => Hyperf\Tracer\Adapter\NoOpTracerFactory::class,
+        ],
+    ],
+    'tags' => [
+        'http_client' => [
+            'http.url' => 'http.url',
+            'http.method' => 'http.method',
+            'http.status_code' => 'http.status_code',
+        ],
+        'redis' => [
+            'arguments' => 'arguments',
+            'result' => 'result',
+        ],
+        'db' => [
+            'db.query' => 'db.query',
+            'db.statement' => 'db.statement',
+            'db.query_time' => 'db.query_time',
+        ],
+        'exception' => [
+            'class' => 'exception.class',
+            'code' => 'exception.code',
+            'message' => 'exception.message',
+            'stack_trace' => 'exception.stack_trace',
+        ],
+        'request' => [
+            'path' => 'request.path',
+            'uri' => 'request.uri',
+            'method' => 'request.method',
+            'header' => 'request.header',
+        ],
+        'coroutine' => [
+            'id' => 'coroutine.id',
+        ],
+        'response' => [
+            'status_code' => 'response.status_code',
+        ],
+        'rpc' => [
+            'path' => 'rpc.path',
+            'status' => 'rpc.status',
         ],
     ],
 ];

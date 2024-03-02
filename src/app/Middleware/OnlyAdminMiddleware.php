@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Middleware;
 
-use App\Services\UserService;
+use App\Services\UserCRUDService;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface as HttpResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -19,13 +19,13 @@ readonly class OnlyAdminMiddleware implements MiddlewareInterface
      * @param Container $container
      * @param RequestInterface $request
      * @param HttpResponse $response
-     * @param UserService $userService
+     * @param UserCRUDService $userService
      */
     public function __construct(
         protected Container $container,
         protected RequestInterface $request,
         protected HttpResponse $response,
-        private UserService $userService
+        private UserCRUDService $userService
     )
     {
     }
