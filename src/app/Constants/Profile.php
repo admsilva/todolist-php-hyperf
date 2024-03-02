@@ -14,12 +14,12 @@ class Profile extends AbstractConstants
     /**
      * @Message("Administrator")
      */
-    public const ADMIN = 'admin';
+    public const string ADMIN = 'admin';
 
     /**
      * @Message("Guest")
      */
-    public const GUEST = 'guest';
+    public const string GUEST = 'guest';
 
     /**
      * @return array

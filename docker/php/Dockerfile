@@ -1,4 +1,4 @@
-FROM hyperf/hyperf:8.2-alpine-v3.18-swoole
+FROM hyperf/hyperf:8.3-alpine-v3.19-swoole-slim
 
 ARG USER
 ARG GROUP

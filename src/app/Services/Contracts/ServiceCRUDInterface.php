@@ -7,7 +7,7 @@ namespace App\Services\Contracts;
 use App\Model\Model;
 use Hyperf\Database\Model\Collection;
 
-interface ServiceInterface
+interface ServiceCRUDInterface
 {
     /**
      * @param string $uuid

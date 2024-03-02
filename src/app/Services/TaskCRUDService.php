@@ -6,12 +6,12 @@ namespace App\Services;
 
 use App\Exception\UserException;
 use App\Model\Model;
-use App\Services\Contracts\ServiceInterface;
+use App\Services\Contracts\ServiceCRUDInterface;
 use Hyperf\Collection\Arr;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Di\Container;
 
-readonly class TaskService extends AbstractService implements ServiceInterface
+readonly class TaskCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
 {
     /**
      * @var Container
@@ -22,7 +22,7 @@ readonly class TaskService extends AbstractService implements ServiceInterface
     /**
      * @const string
      */
-    final protected const MODEL_NAME = 'task';
+    final protected const string MODEL_NAME = 'task';
 
     /**
      * @param array $data

@@ -12,10 +12,10 @@ use Hyperf\Di\Annotation\Inject;
 readonly class RegisterService
 {
     /**
-     * @var UserService
+     * @var UserCRUDService
      */
     #[Inject]
-    private UserService $userService;
+    private UserCRUDService $userService;
 
     /**
      * @param array $data

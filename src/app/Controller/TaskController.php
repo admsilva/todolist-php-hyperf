@@ -7,7 +7,7 @@ namespace App\Controller;
 use App\Middleware\AuthMiddleware;
 use App\Request\TaskRequest;
 use App\Resource\TaskResource;
-use App\Services\TaskService;
+use App\Services\TaskCRUDService;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\DeleteMapping;
@@ -24,10 +24,10 @@ use Throwable;
 class TaskController extends AbstractController
 {
     /**
-     * @var TaskService
+     * @var TaskCRUDService
      */
     #[Inject]
-    private readonly TaskService $taskService;
+    private readonly TaskCRUDService $taskService;
 
     /**
      * @var ResponseInterface
