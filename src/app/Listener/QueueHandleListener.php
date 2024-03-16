@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace App\Listener;
 
 use Hyperf\AsyncQueue\AnnotationJob;
@@ -28,13 +29,9 @@ use Psr\Log\LoggerInterface;
 #[Listener]
 class QueueHandleListener implements ListenerInterface
 {
-    /**
-     * @var LoggerInterface
-     */
     protected LoggerInterface $logger;
 
     /**
-     * @param ContainerInterface $container
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
@@ -56,10 +53,6 @@ class QueueHandleListener implements ListenerInterface
         ];
     }
 
-    /**
-     * @param object $event
-     * @return void
-     */
     public function process(object $event): void
     {
         if ($event instanceof Event && $event->getMessage()->job()) {

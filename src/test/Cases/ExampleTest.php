@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace HyperfTest\Cases;
 
 use Hyperf\Testing\TestCase;
@@ -21,6 +22,6 @@ class ExampleTest extends TestCase
 {
     public function testExample()
     {
-        $this->get('/')->assertOk()->assertSee('Hyperf');
+        $this->get('/')->assertOk()->assertSee('Ok');
     }
 }

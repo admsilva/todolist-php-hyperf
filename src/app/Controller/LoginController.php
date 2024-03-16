@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Controller;
 
@@ -16,23 +24,13 @@ use Throwable;
 #[Controller]
 class LoginController extends AbstractController
 {
-    /**
-     * @var LoginService
-     */
-    #[Inject]
-    private readonly LoginService $loginService;
-
-    /**
-     * @var ResponseInterface
-     */
     #[Inject]
     protected ResponseInterface $response;
 
-    /**
-     * @param LoginRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PostMapping(path: "")]
+    #[Inject]
+    private readonly LoginService $loginService;
+
+    #[PostMapping(path: '')]
     public function login(LoginRequest $request): Psr7ResponseInterface
     {
         try {

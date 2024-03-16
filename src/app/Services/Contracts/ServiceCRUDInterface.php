@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Services\Contracts;
 
@@ -9,33 +17,13 @@ use Hyperf\Database\Model\Collection;
 
 interface ServiceCRUDInterface
 {
-    /**
-     * @param string $uuid
-     * @return Model
-     */
     public function findByUuid(string $uuid): Model;
 
-    /**
-     * @return Collection
-     */
     public function listAll(): Collection;
 
-    /**
-     * @param array $data
-     * @return Model
-     */
     public function create(array $data): Model;
 
-    /**
-     * @param string $uuid
-     * @param array $data
-     * @return bool
-     */
     public function updateByUuid(string $uuid, array $data): bool;
 
-    /**
-     * @param string $uuid
-     * @return bool
-     */
     public function deleteById(string $uuid): bool;
 }

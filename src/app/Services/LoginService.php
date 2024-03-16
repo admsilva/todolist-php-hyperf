@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Services;
 
@@ -11,25 +19,14 @@ use Firebase\JWT\JWT;
 
 class LoginService
 {
-    /**
-     * @var string
-     */
     private string $jwtSecretKey;
 
-    /**
-     * @param RepositoryInterface $repository
-     */
     public function __construct(private readonly RepositoryInterface $repository)
     {
         $this->jwtSecretKey = getenv('JWT_SECRET_KEY');
         $this->repository->setModelName('user');
     }
 
-    /**
-     * @param string $email
-     * @param string $password
-     * @return array
-     */
     public function login(string $email, string $password): array
     {
         $filters = ['email' => $email];

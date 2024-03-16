@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Services;
 
@@ -14,31 +22,19 @@ use Hyperf\Di\Container;
 readonly class TaskCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
 {
     /**
-     * @var Container
-     */
-    #[Inject]
-    private Container $container;
-
-    /**
      * @const string
      */
     final protected const string MODEL_NAME = 'task';
 
-    /**
-     * @param array $data
-     * @return Model
-     */
+    #[Inject]
+    private Container $container;
+
     public function create(array $data): Model
     {
         $data = $this->setUserUuidAuth($data);
         return $this->repository->create($data);
     }
 
-    /**
-     * @param string $uuid
-     * @param array $data
-     * @return bool
-     */
     public function updateByUuid(string $uuid, array $data): bool
     {
         $data = $this->setUserUuidAuth($data);
@@ -46,10 +42,6 @@ readonly class TaskCRUDService extends AbstractCRUDService implements ServiceCRU
         return $register->update($data);
     }
 
-    /**
-     * @param array $data
-     * @return array
-     */
     private function setUserUuidAuth(array $data): array
     {
         $authUser = $this->container->get('user');

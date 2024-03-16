@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Model;
 
@@ -12,33 +20,24 @@ class User extends Model
     use SoftDeletes;
 
     /**
-     * The attributes that enabled or disabled auto incrementing
-     *
-     * @var bool
+     * The attributes that enabled or disabled auto incrementing.
      */
     public bool $incrementing = false;
 
     /**
      * The table associated with the model.
-     *
-     * @var string|null
      */
     protected ?string $table = 'users';
 
-    /**
-     * @var string
-     */
     protected string $primaryKey = 'uuid';
 
     /**
      * The attributes that are mass assignable.
-     *
-     * @var array
      */
     protected array $fillable = ['uuid', 'name', 'email', 'profile', 'password'];
 
     /**
-     * The attributes that are dates
+     * The attributes that are dates.
      *
      * @var array|string[]
      */
@@ -46,8 +45,6 @@ class User extends Model
 
     /**
      * The attributes that should be cast to native types.
-     *
-     * @var array
      */
     protected array $casts = [
         'uuid' => 'string',
@@ -58,16 +55,14 @@ class User extends Model
     ];
 
     /**
-     * The attributes that should be hidden
+     * The attributes that should be hidden.
      *
      * @var array|string[]
      */
     protected array $hidden = ['password', 'deleted_at'];
 
     /**
-     * Boot creating
-     *
-     * @return void
+     * Boot creating.
      */
     public function creating(): void
     {
