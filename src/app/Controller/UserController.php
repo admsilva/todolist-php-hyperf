@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Controller;
 
@@ -24,22 +32,13 @@ use Throwable;
 #[Middlewares([AuthMiddleware::class, OnlyAdminMiddleware::class])]
 class UserController extends AbstractController
 {
-    /**
-     * @var UserCRUDService
-     */
-    #[Inject]
-    private readonly UserCRUDService $userService;
-
-    /**
-     * @var ResponseInterface
-     */
     #[Inject]
     protected ResponseInterface $response;
 
-    /**
-     * @return Psr7ResponseInterface
-     */
-    #[GetMapping(path: "list")]
+    #[Inject]
+    private readonly UserCRUDService $userService;
+
+    #[GetMapping(path: 'list')]
     public function listAllUsers(): Psr7ResponseInterface
     {
         try {
@@ -50,11 +49,7 @@ class UserController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @return Psr7ResponseInterface
-     */
-    #[GetMapping(path: "{uuid}")]
+    #[GetMapping(path: '{uuid}')]
     public function getUserByUuid(string $uuid): Psr7ResponseInterface
     {
         try {
@@ -65,11 +60,7 @@ class UserController extends AbstractController
         }
     }
 
-    /**
-     * @param UserRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PostMapping(path: "")]
+    #[PostMapping(path: '')]
     public function createUser(UserRequest $request): Psr7ResponseInterface
     {
         try {
@@ -81,12 +72,7 @@ class UserController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @param UserRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PutMapping(path: "{uuid}")]
+    #[PutMapping(path: '{uuid}')]
     public function updateUser(string $uuid, UserRequest $request): Psr7ResponseInterface
     {
         try {
@@ -98,11 +84,7 @@ class UserController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @return Psr7ResponseInterface
-     */
-    #[DeleteMapping(path: "{uuid}")]
+    #[DeleteMapping(path: '{uuid}')]
     public function deleteUser(string $uuid): Psr7ResponseInterface
     {
         try {

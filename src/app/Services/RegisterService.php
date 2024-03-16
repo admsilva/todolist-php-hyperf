@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Services;
 
@@ -11,16 +19,9 @@ use Hyperf\Di\Annotation\Inject;
 
 readonly class RegisterService
 {
-    /**
-     * @var UserCRUDService
-     */
     #[Inject]
     private UserCRUDService $userService;
 
-    /**
-     * @param array $data
-     * @return Model
-     */
     public function register(array $data): Model
     {
         Arr::set($data, 'profile', Profile::GUEST);

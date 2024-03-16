@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace App\Exception\Handler;
 
 use Hyperf\Contract\StdoutLoggerInterface;
@@ -20,18 +21,10 @@ use Throwable;
 
 class AppExceptionHandler extends ExceptionHandler
 {
-    /**
-     * @param StdoutLoggerInterface $logger
-     */
     public function __construct(protected StdoutLoggerInterface $logger)
     {
     }
 
-    /**
-     * @param Throwable $throwable
-     * @param ResponseInterface $response
-     * @return MessageInterface|ResponseInterface
-     */
     public function handle(Throwable $throwable, ResponseInterface $response): MessageInterface|ResponseInterface
     {
         $this->logger->error(
@@ -44,10 +37,6 @@ class AppExceptionHandler extends ExceptionHandler
             ->withBody(new SwooleStream('Internal Server Error.'));
     }
 
-    /**
-     * @param Throwable $throwable
-     * @return bool
-     */
     public function isValid(Throwable $throwable): bool
     {
         return true;

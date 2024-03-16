@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Scopes;
 
@@ -13,17 +21,9 @@ use Hyperf\Di\Container;
 
 class FilterByUserAuth implements Scope
 {
-    /**
-     * @var Container
-     */
     #[Inject]
     private Container $container;
 
-    /**
-     * @param Builder $builder
-     * @param Model $model
-     * @return void
-     */
     public function apply(Builder $builder, Model $model): void
     {
         $authUser = $this->container->get('user');

@@ -9,6 +9,7 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 namespace HyperfTest;
 
 use Hyperf\Testing\Client;
@@ -24,9 +25,6 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class HttpTestCase extends TestCase
 {
-    /**
-     * @var Client
-     */
     protected Client $client;
 
     public function __construct($name = null, array $data = [], $dataName = '')

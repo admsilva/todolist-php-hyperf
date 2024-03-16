@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Controller;
 
@@ -23,22 +31,13 @@ use Throwable;
 #[Middleware(AuthMiddleware::class)]
 class TaskController extends AbstractController
 {
-    /**
-     * @var TaskCRUDService
-     */
-    #[Inject]
-    private readonly TaskCRUDService $taskService;
-
-    /**
-     * @var ResponseInterface
-     */
     #[Inject]
     protected ResponseInterface $response;
 
-    /**
-     * @return Psr7ResponseInterface
-     */
-    #[GetMapping(path: "list")]
+    #[Inject]
+    private readonly TaskCRUDService $taskService;
+
+    #[GetMapping(path: 'list')]
     public function listAllTasks(): Psr7ResponseInterface
     {
         try {
@@ -49,11 +48,7 @@ class TaskController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @return Psr7ResponseInterface
-     */
-    #[GetMapping(path: "{uuid}")]
+    #[GetMapping(path: '{uuid}')]
     public function getTaskByUuid(string $uuid): Psr7ResponseInterface
     {
         try {
@@ -64,11 +59,7 @@ class TaskController extends AbstractController
         }
     }
 
-    /**
-     * @param TaskRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PostMapping(path: "")]
+    #[PostMapping(path: '')]
     public function createTask(TaskRequest $request): Psr7ResponseInterface
     {
         try {
@@ -80,12 +71,7 @@ class TaskController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @param TaskRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PutMapping(path: "{uuid}")]
+    #[PutMapping(path: '{uuid}')]
     public function updateTask(string $uuid, TaskRequest $request): Psr7ResponseInterface
     {
         try {
@@ -97,11 +83,7 @@ class TaskController extends AbstractController
         }
     }
 
-    /**
-     * @param string $uuid
-     * @return Psr7ResponseInterface
-     */
-    #[DeleteMapping(path: "{uuid}")]
+    #[DeleteMapping(path: '{uuid}')]
     public function deleteTask(string $uuid): Psr7ResponseInterface
     {
         try {

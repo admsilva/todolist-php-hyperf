@@ -1,39 +1,37 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Controller;
 
 use App\Request\RegisterRequest;
 use App\Resource\UserResource;
 use App\Services\RegisterService;
+use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\HttpServer\Annotation\PostMapping;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
-use Hyperf\Di\Annotation\Inject;
 use Throwable;
 
 #[Controller]
 class RegisterController extends AbstractController
 {
-    /**
-     * @var RegisterService
-     */
-    #[Inject]
-    private readonly RegisterService $registerService;
-
-    /**
-     * @var ResponseInterface
-     */
     #[Inject]
     protected ResponseInterface $response;
 
-    /**
-     * @param RegisterRequest $request
-     * @return Psr7ResponseInterface
-     */
-    #[PostMapping(path: "")]
+    #[Inject]
+    private readonly RegisterService $registerService;
+
+    #[PostMapping(path: '')]
     public function login(RegisterRequest $request): Psr7ResponseInterface
     {
         try {

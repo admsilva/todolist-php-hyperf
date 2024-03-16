@@ -1,6 +1,14 @@
 <?php
 
 declare(strict_types=1);
+/**
+ * This file is part of Hyperf.
+ *
+ * @link     https://www.hyperf.io
+ * @document https://hyperf.wiki
+ * @contact  group@hyperf.io
+ * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
+ */
 
 namespace App\Services;
 
@@ -18,10 +26,6 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
      */
     final protected const string MODEL_NAME = 'user';
 
-    /**
-     * @param array $data
-     * @return Model
-     */
     public function create(array $data): Model
     {
         $email = Arr::get($data, 'email');
@@ -33,11 +37,6 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
         return $this->repository->create($data);
     }
 
-    /**
-     * @param string $uuid
-     * @param array $data
-     * @return bool
-     */
     public function updateByUuid(string $uuid, array $data): bool
     {
         $user = $this->getByUuid($uuid);
@@ -45,10 +44,6 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
         return $user->update($data);
     }
 
-    /**
-     * @param string $uuid
-     * @return bool
-     */
     public function isAdminByUuid(string $uuid): bool
     {
         $user = $this->repository->findByUuid($uuid);
@@ -64,10 +59,6 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
         return true;
     }
 
-    /**
-     * @param array $data
-     * @return array
-     */
     private function passwordHashed(array $data): array
     {
         $passwordTextPlan = Arr::get($data, 'password');
@@ -79,11 +70,7 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
         return $data;
     }
 
-    /**
-     * @param string $email
-     * @return Builder|Model|null
-     */
-    private function getUserByEmail(string $email): Builder|Model|null
+    private function getUserByEmail(string $email): null|Builder|Model
     {
         $filters = ['email' => $email];
         return $this->repository->first($filters);
