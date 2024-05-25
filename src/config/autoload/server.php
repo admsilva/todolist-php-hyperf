@@ -13,7 +13,7 @@ use Hyperf\Framework\Bootstrap\PipeMessageCallback;
 use Hyperf\Framework\Bootstrap\WorkerExitCallback;
 use Hyperf\Framework\Bootstrap\WorkerStartCallback;
 use Hyperf\Server\Event;
-use Hyperf\Server\Server;
+use Hyperf\Server\ServerInterface;
 use Swoole\Constant;
 
 return [
@@ -21,7 +21,7 @@ return [
     'servers' => [
         [
             'name' => 'http',
-            'type' => Server::SERVER_HTTP,
+            'type' => ServerInterface::SERVER_HTTP,
             'host' => '0.0.0.0',
             'port' => 9501,
             'sock_type' => SWOOLE_SOCK_TCP,

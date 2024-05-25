@@ -12,6 +12,4 @@ declare(strict_types=1);
 use App\Repositories\Contracts\RepositoryInterface;
 use App\Repositories\QueryBuilder\QueryBuilderRepositoryStrategy;
 
-return [
-    RepositoryInterface::class => QueryBuilderRepositoryStrategy::class,
-];
+return [RepositoryInterface::class => QueryBuilderRepositoryStrategy::class];
