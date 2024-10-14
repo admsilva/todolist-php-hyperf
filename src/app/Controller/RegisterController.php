@@ -16,13 +16,13 @@ use App\Request\RegisterRequest;
 use App\Resource\UserResource;
 use App\Services\RegisterService;
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\PostMapping;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
 
-#[Controller]
+#[AutoController]
 class RegisterController extends AbstractController
 {
     #[Inject]

@@ -15,10 +15,11 @@ namespace App\Controller;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
-use Hyperf\Swagger\Annotation as OA;
+use Hyperf\Swagger\Annotation as SA;
 use Psr\Container\ContainerInterface;
 
-#[OA\Server(url: 'http://localhost:9510')]
+#[SA\HyperfServer('http')]
+#[SA\Info(version: '0.1', title: 'ToDo List API')]
 abstract class AbstractController
 {
     #[Inject]

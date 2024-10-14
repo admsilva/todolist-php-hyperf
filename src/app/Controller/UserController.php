@@ -18,7 +18,7 @@ use App\Request\UserRequest;
 use App\Resource\UserResource;
 use App\Services\UserCRUDService;
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\DeleteMapping;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\Middlewares;
@@ -28,7 +28,7 @@ use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
 
-#[Controller]
+#[AutoController]
 #[Middlewares([AuthMiddleware::class, OnlyAdminMiddleware::class])]
 class UserController extends AbstractController
 {

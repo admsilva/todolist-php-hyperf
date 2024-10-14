@@ -17,7 +17,7 @@ use App\Request\TaskRequest;
 use App\Resource\TaskResource;
 use App\Services\TaskCRUDService;
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\DeleteMapping;
 use Hyperf\HttpServer\Annotation\GetMapping;
 use Hyperf\HttpServer\Annotation\Middleware;
@@ -27,7 +27,7 @@ use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
 
-#[Controller]
+#[AutoController]
 #[Middleware(AuthMiddleware::class)]
 class TaskController extends AbstractController
 {

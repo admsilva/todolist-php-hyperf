@@ -29,7 +29,7 @@ class QueryBuilderRepositoryStrategy implements RepositoryInterface
      */
     public function setModelName(string $modelName): void
     {
-        $modelClass = 'App\\Model\\' . ucfirst($modelName);
+        $modelClass = 'App\Model\\' . ucfirst($modelName);
         if (class_exists($modelClass) === false) {
             throw ModelException::notFound($modelClass);
         }
