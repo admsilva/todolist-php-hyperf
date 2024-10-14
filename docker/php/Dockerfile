@@ -1,4 +1,4 @@
-FROM hyperf/hyperf:8.3-alpine-v3.19-swoole-slim
+FROM hyperf/hyperf:8.3-alpine-v3.20-swoole-slim
 
 ARG USER
 ARG GROUP
@@ -21,5 +21,7 @@ fi
 COPY ./docker/php/scripts/ /
 
 RUN chmod +x /docker-entrypoint.sh && chmod +x /usr/local/bin/composer
+
+EXPOSE 9501 9502
 
 ENTRYPOINT ["sh", "-c", "/docker-entrypoint.sh"]

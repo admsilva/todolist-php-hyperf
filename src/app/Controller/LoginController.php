@@ -15,13 +15,14 @@ namespace App\Controller;
 use App\Request\LoginRequest;
 use App\Services\LoginService;
 use Hyperf\Di\Annotation\Inject;
-use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\PostMapping;
 use Hyperf\HttpServer\Contract\ResponseInterface;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
+use Hyperf\Swagger\Annotation as SA;
 
-#[Controller]
+#[AutoController]
 class LoginController extends AbstractController
 {
     #[Inject]
@@ -31,6 +32,7 @@ class LoginController extends AbstractController
     private readonly LoginService $loginService;
 
     #[PostMapping(path: '')]
+    #[SA\Post(path: '/login/login', summary: 'POST login', tags: ['Api/Login'])]
     public function login(LoginRequest $request): Psr7ResponseInterface
     {
         try {

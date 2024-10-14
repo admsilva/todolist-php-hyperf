@@ -9,15 +9,17 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
+
 use Hyperf\Framework\Bootstrap\PipeMessageCallback;
 use Hyperf\Framework\Bootstrap\WorkerExitCallback;
 use Hyperf\Framework\Bootstrap\WorkerStartCallback;
+use Hyperf\HttpServer\Server;
 use Hyperf\Server\Event;
 use Hyperf\Server\ServerInterface;
 use Swoole\Constant;
 
 return [
-    'mode' => SWOOLE_PROCESS,
+    'mode' => SWOOLE_BASE,
     'servers' => [
         [
             'name' => 'http',
@@ -26,7 +28,7 @@ return [
             'port' => 9501,
             'sock_type' => SWOOLE_SOCK_TCP,
             'callbacks' => [
-                Event::ON_REQUEST => [Hyperf\HttpServer\Server::class, 'onRequest'],
+                Event::ON_REQUEST => [Server::class, 'onRequest'],
             ],
             'options' => [
                 // Whether to enable request lifecycle event

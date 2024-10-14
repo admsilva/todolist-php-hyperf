@@ -17,6 +17,7 @@ return [
     'url' => '/swagger',
     'auto_generate' => true,
     'scan' => [
-        'paths' => [BASE_PATH . '/app/Controller'],
+        'paths' => null,
     ],
+    'processors' => [],
 ];
