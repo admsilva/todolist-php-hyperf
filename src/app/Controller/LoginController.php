@@ -18,9 +18,9 @@ use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\AutoController;
 use Hyperf\HttpServer\Annotation\PostMapping;
 use Hyperf\HttpServer\Contract\ResponseInterface;
+use Hyperf\Swagger\Annotation as SA;
 use Psr\Http\Message\ResponseInterface as Psr7ResponseInterface;
 use Throwable;
-use Hyperf\Swagger\Annotation as SA;
 
 #[AutoController]
 class LoginController extends AbstractController
