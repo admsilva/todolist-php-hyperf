@@ -13,7 +13,6 @@
     "license": "Apache-2.0",
     "require": {
         "php": ">=8.3",
-        "firebase/php-jwt": "^6.10",
         "hyperf/amqp": "~3.1.0",
         "hyperf/async-queue": "~3.1.0",
         "hyperf/cache": "~3.1.0",
@@ -23,7 +22,6 @@
         "hyperf/database": "~3.1.0",
         "hyperf/db-connection": "~3.1.0",
         "hyperf/elasticsearch": "~3.1.0",
-        "hyperf/engine": "^2.11",
         "hyperf/framework": "~3.1.0",
         "hyperf/guzzle": "~3.1.0",
         "hyperf/http-server": "~3.1.0",
@@ -37,18 +35,20 @@
         "hyperf/rpc": "~3.1.0",
         "hyperf/rpc-client": "~3.1.0",
         "hyperf/rpc-server": "~3.1.0",
-        "hyperf/swagger": "^3.1",
+        "hyperf/swagger": "~3.1.0",
         "hyperf/tracer": "~3.1.0",
         "hyperf/utils": "~3.1.0",
         "hyperf/validation": "~3.1.0",
+        "hyperf/engine": "^2.11",
+        "firebase/php-jwt": "^6.10",
         "ramsey/uuid": "^4.7",
         "zircote/swagger-php": "^4.11"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^3.64",
         "hyperf/devtool": "~3.1.0",
         "hyperf/testing": "~3.1.0",
         "hyperf/watcher": "~3.1.0",
+        "friendsofphp/php-cs-fixer": "^3.64",
         "mockery/mockery": "^1.6",
         "phpstan/phpstan": "^1.12",
         "swoole/ide-helper": "^5.1"
