@@ -31,7 +31,7 @@ return [
         'io' => IOFactory::class,
         'params' => [
             'insist' => false,
-            'login_method' => 'AMQPLAIN',
+            'login_method' => 'CHAMPLAIN',
             'login_response' => null,
             'locale' => 'en_US',
             'connection_timeout' => 3,

@@ -28,7 +28,7 @@ ini_set('display_startup_errors', 'on');
 error_reporting(E_ALL);
 date_default_timezone_set('America/Sao_Paulo');
 
-Runtime::enableCoroutine(true);
+Runtime::enableCoroutine();
 
 ! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
 
