@@ -39,8 +39,8 @@
         "hyperf/tracer": "~3.1.0",
         "hyperf/utils": "~3.1.0",
         "hyperf/validation": "~3.1.0",
-        "hyperf/engine": "^2.12",
-        "firebase/php-jwt": "^6.10",
+        "hyperf/engine": "^2.13",
+        "firebase/php-jwt": "^6.11",
         "ramsey/uuid": "^4.7",
         "zircote/swagger-php": "^4.11"
     },
@@ -48,7 +48,7 @@
         "hyperf/devtool": "~3.1.0",
         "hyperf/testing": "~3.1.0",
         "hyperf/watcher": "~3.1.0",
-        "friendsofphp/php-cs-fixer": "^3.65",
+        "friendsofphp/php-cs-fixer": "^3.68",
         "mockery/mockery": "^1.6",
         "phpstan/phpstan": "^1.12",
         "swoole/ide-helper": "^5.1"
