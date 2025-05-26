@@ -2,11 +2,11 @@
 
 ## Componentes
 
-- PHP (8.3)
+- PHP (8.4)
 - MONGO (latest)
 - MYSQL (latest)
 - REDIS (latest)
-- HYPERF (3.1)
+- HYPERF (3.2)
 
 ## Instalação
 
