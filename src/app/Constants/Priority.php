@@ -22,17 +22,17 @@ class Priority extends AbstractConstants
     /**
      * @Message("Lowest")
      */
-    public const string LOWEST = 'lowest';
+    public const LOWEST = 'lowest';
 
     /**
      * @Message("Middle")
      */
-    public const string MIDDLE = 'middle';
+    public const MIDDLE = 'middle';
 
     /**
      * @Message("Highest")
      */
-    public const string HIGHEST = 'highest';
+    public const HIGHEST = 'highest';
 
     public static function values(): array
     {

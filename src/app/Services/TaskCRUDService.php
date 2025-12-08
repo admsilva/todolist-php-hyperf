@@ -19,12 +19,12 @@ use Hyperf\Collection\Arr;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\Di\Container;
 
-readonly class TaskCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
+class TaskCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
 {
     /**
      * @const string
      */
-    final protected const string MODEL_NAME = 'task';
+    protected const MODEL_NAME = 'task';
 
     #[Inject]
     private Container $container;

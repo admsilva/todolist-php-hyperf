@@ -24,7 +24,7 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Throwable;
 
-readonly class AuthMiddleware implements MiddlewareInterface
+class AuthMiddleware implements MiddlewareInterface
 {
     protected string $jwtSecretKey;
 

@@ -36,7 +36,7 @@ class UserController extends AbstractController
     protected ResponseInterface $response;
 
     #[Inject]
-    private readonly UserCRUDService $userService;
+    private UserCRUDService $userService;
 
     #[GetMapping(path: 'list')]
     public function listAllUsers(): Psr7ResponseInterface

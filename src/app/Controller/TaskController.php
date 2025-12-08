@@ -35,7 +35,7 @@ class TaskController extends AbstractController
     protected ResponseInterface $response;
 
     #[Inject]
-    private readonly TaskCRUDService $taskService;
+    private TaskCRUDService $taskService;
 
     #[GetMapping(path: 'list')]
     public function listAllTasks(): Psr7ResponseInterface

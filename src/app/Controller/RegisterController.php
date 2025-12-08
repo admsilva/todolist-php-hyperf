@@ -29,7 +29,7 @@ class RegisterController extends AbstractController
     protected ResponseInterface $response;
 
     #[Inject]
-    private readonly RegisterService $registerService;
+    private RegisterService $registerService;
 
     #[PostMapping(path: '')]
     public function login(RegisterRequest $request): Psr7ResponseInterface

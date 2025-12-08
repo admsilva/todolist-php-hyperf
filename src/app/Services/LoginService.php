@@ -21,7 +21,7 @@ class LoginService
 {
     private string $jwtSecretKey;
 
-    public function __construct(private readonly RepositoryInterface $repository)
+    public function __construct(private RepositoryInterface $repository)
     {
         $this->jwtSecretKey = getenv('JWT_SECRET_KEY');
         $this->repository->setModelName('user');
