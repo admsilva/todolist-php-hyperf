@@ -19,7 +19,7 @@ use App\Services\Contracts\ServiceCRUDInterface;
 use Exception;
 use Hyperf\Database\Model\Collection;
 
-abstract readonly class AbstractCRUDService implements ServiceCRUDInterface
+abstract class AbstractCRUDService implements ServiceCRUDInterface
 {
     public function __construct(protected Repository $repository)
     {

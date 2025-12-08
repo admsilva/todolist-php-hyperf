@@ -29,7 +29,7 @@ class LoginController extends AbstractController
     protected ResponseInterface $response;
 
     #[Inject]
-    private readonly LoginService $loginService;
+    private LoginService $loginService;
 
     #[PostMapping(path: '')]
     #[SA\Post(path: '/login/login', summary: 'POST login', tags: ['Api/Login'])]

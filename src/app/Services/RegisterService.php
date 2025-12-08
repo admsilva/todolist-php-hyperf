@@ -17,7 +17,7 @@ use App\Model\Model;
 use Hyperf\Collection\Arr;
 use Hyperf\Di\Annotation\Inject;
 
-readonly class RegisterService
+class RegisterService
 {
     #[Inject]
     private UserCRUDService $userService;

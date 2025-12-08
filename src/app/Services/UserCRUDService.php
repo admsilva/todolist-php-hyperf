@@ -15,16 +15,17 @@ namespace App\Services;
 use App\Constants\Profile;
 use App\Exception\UserException;
 use App\Model\Model;
+use App\Model\User;
 use App\Services\Contracts\ServiceCRUDInterface;
 use Hyperf\Collection\Arr;
 use Hyperf\Database\Model\Builder;
 
-readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
+class UserCRUDService extends AbstractCRUDService implements ServiceCRUDInterface
 {
     /**
      * @const string
      */
-    final protected const string MODEL_NAME = 'user';
+    protected const MODEL_NAME = 'user';
 
     public function create(array $data): Model
     {
@@ -70,7 +71,7 @@ readonly class UserCRUDService extends AbstractCRUDService implements ServiceCRU
         return $data;
     }
 
-    private function getUserByEmail(string $email): null|Builder|Model
+    private function getUserByEmail(string $email): null|Builder|Model|User
     {
         $filters = ['email' => $email];
         return $this->repository->first($filters);

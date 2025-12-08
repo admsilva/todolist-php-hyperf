@@ -21,7 +21,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-readonly class OnlyAdminMiddleware implements MiddlewareInterface
+class OnlyAdminMiddleware implements MiddlewareInterface
 {
     public function __construct(
         protected Container $container,
