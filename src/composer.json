@@ -39,18 +39,18 @@
         "hyperf/tracer": "~3.1.0",
         "hyperf/utils": "~3.1.0",
         "hyperf/validation": "~3.1.0",
-        "hyperf/engine": "~2.15",
-        "firebase/php-jwt": "~6.11",
-        "ramsey/uuid": "~4.9"
+        "hyperf/engine": "2.15.0",
+        "firebase/php-jwt": "7.0.5",
+        "ramsey/uuid": "4.9.2"
     },
     "require-dev": {
         "hyperf/devtool": "~3.1.0",
         "hyperf/testing": "~3.1.0",
         "hyperf/watcher": "~3.1.0",
-        "friendsofphp/php-cs-fixer": "~3.91",
-        "mockery/mockery": "~1.6",
-        "phpstan/phpstan": "~2.1",
-        "swoole/ide-helper": "~6.0"
+        "friendsofphp/php-cs-fixer": "3.95.2",
+        "mockery/mockery": "1.6.12",
+        "phpstan/phpstan": "2.1.54",
+        "swoole/ide-helper": "6.0.2"
     },
     "suggest": {
         "ext-openssl": "Required to use HTTPS.",
